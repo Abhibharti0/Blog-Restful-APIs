@@ -37,16 +37,16 @@ function About() {
             </h2>
             <ul className="space-y-2">
               <li className="flex items-center space-x-2">
-                <FaReact className="text-blue-500" />
-                <span>Front-End: React.js, Angular, Vue.js, HTML5, CSS3</span>
+                <FaReact className="text-orange-500" />
+                <span>Front-End: HTML, CSS, JavaScript, React.js</span>
               </li>
               <li className="flex items-center space-x-2">
                 <FaNodeJs className="text-green-600" />
-                <span>Back-End: Node.js, Express.js, Django</span>
+                <span>Back-End: Node.js, Express.js</span>
               </li>
               <li className="flex items-center space-x-2">
                 <FaDatabase className="text-yellow-600" />
-                <span>Databases: MySQL, PostgreSQL, MongoDB</span>
+                <span>Databases: MongoDB, SQL Server</span>
               </li>
               <li className="flex items-center space-x-2">
                 <FaCloud className="text-purple-600" />
@@ -69,15 +69,18 @@ function About() {
           </div>
 
           {/* Personal Interests */}
-          <div>
+         
+
+          {/* Credits */}
+          <div className="bg-gradient-to-r from-blue-50 to-purple-50 p-6 rounded-lg border-l-4 border-blue-600">
             <h2 className="text-2xl font-semibold text-blue-700 mb-2">
-              Personal Interests & Inspiration
+              Credits
             </h2>
-            <p>
-              Beyond work, {profile?.user?.name} loves cricket and admires{" "}
-              <strong>King Kohli</strong>. His biggest inspiration is his twin
-              brother <strong>Ankush</strong>, whose support and friendly rivalry
-              motivates him to strive for excellence.
+            <p className="text-gray-700">
+              This blog platform was created with the guidance and support of{" "}
+              <strong className="text-blue-600 text-lg">Satyam Dubey</strong>.
+              His mentorship and expertise have been invaluable in shaping this
+              project.
             </p>
           </div>
         </div>

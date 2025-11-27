@@ -26,11 +26,23 @@ function Trending() {
     },
   };
   return (
-    <div className=" container mx-auto">
-      <h1 className=" text-2xl font-semibold mb-4">Trending</h1>
+    <div className="container mx-auto mt-20">
+      <h1 className="text-2xl font-semibold mb-4">Trending</h1>
       <Carousel responsive={responsive}>
         {blogs && blogs.length > 0 ? (
           blogs.slice(0, 6).map((element) => {
+            // Safe parse adminPhoto if it's a JSON string
+            let adminPhotoUrl = "https://via.placeholder.com/40";
+            try {
+              if (typeof element.adminPhoto === "string" && element.adminPhoto.startsWith("{")) {
+                adminPhotoUrl = JSON.parse(element.adminPhoto)?.url || "https://via.placeholder.com/40";
+              } else {
+                adminPhotoUrl = element.adminPhoto || "https://via.placeholder.com/40";
+              }
+            } catch (e) {
+              adminPhotoUrl = element.adminPhoto || "https://via.placeholder.com/40";
+            }
+
             return (
               <div
                 key={element._id}
@@ -39,7 +51,7 @@ function Trending() {
                 <Link to={`/blog/${element._id}`}>
                   <div className="relative">
                     <img
-                      src={element.blogImage.url}
+                      src={element.blogImage?.url}
                       alt="blog"
                       className="w-full h-56 object-cover rounded-t-lg"
                     />
@@ -56,7 +68,7 @@ function Trending() {
                     </h1>
                     <div className="flex items-center">
                       <img
-                        src={element.adminPhoto}
+                        src={adminPhotoUrl}
                         alt="author_avatar"
                         className="w-10 h-10 rounded-full"
                       />

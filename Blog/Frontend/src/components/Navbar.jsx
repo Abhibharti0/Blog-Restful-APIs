@@ -9,8 +9,11 @@ import toast from "react-hot-toast";
 
 function Navbar() {
   const [show, setShow] = useState(false);
-  const { profile, isAuthenticated, setIsAuthenticated } = useAuth();
+  const { profile, isAuthenticated, setIsAuthenticated, setProfile } = useAuth();
   const navigate = useNavigate();
+
+  // Debug logging
+  console.log("Navbar Debug:", { isAuthenticated, profile, adminCheck: profile?.user?.role === "admin" || profile?.role === "admin" });
 
   const API_BASE = "http://localhost:5000"; // Correct backend URL
 
@@ -65,7 +68,7 @@ function Navbar() {
 
         {/* Auth Buttons */}
         <div className="hidden md:flex items-center space-x-4">
-          {isAuthenticated && profile?.user?.role === "admin" && (
+          {isAuthenticated && (profile?.user?.role === "admin" || profile?.role === "admin") && (
             <Link
               to="/dashboard"
               className="flex items-center space-x-2 px-4 py-2 bg-yellow-300 text-blue-600 font-semibold rounded hover:bg-yellow-400 transition-all duration-200"
@@ -131,6 +134,16 @@ function Navbar() {
         ))}
 
         <div className="pt-4 border-t border-gray-200 space-y-2">
+          {isAuthenticated && (profile?.user?.role === "admin" || profile?.role === "admin") && (
+            <Link
+              to="/dashboard"
+              onClick={() => setShow(false)}
+              className="flex items-center space-x-3 w-full text-blue-600 text-lg py-3 px-3 font-semibold bg-yellow-50 hover:bg-yellow-100 rounded-lg transition-all duration-200"
+            >
+              <FaTachometerAlt />
+              <span>Dashboard</span>
+            </Link>
+          )}
           {!isAuthenticated ? (
             <>
               <Link

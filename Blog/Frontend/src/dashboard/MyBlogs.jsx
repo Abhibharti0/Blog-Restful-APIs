@@ -35,13 +35,13 @@ function MyBlogs() {
       });
   };
   return (
-    <div>
-      <div className="container mx-auto my-12 p-4">
-        <div className="grid gap-6 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 md:ml-20">
+    <div className="w-full">
+      <div className="w-full p-0">
+        <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 w-full">
           {myBlogs && myBlogs.length > 0 ? (
             myBlogs.map((element) => (
               <div
-                className="bg-white shadow-lg rounded-lg overflow-hidden"
+                className="bg-white shadow-lg rounded-lg overflow-hidden hover:shadow-xl transition-shadow"
                 key={element._id}
               >
                 {element?.blogImage && (
@@ -58,16 +58,16 @@ function MyBlogs() {
                   <h4 className="text-xl font-semibold my-2">
                     {element.title}
                   </h4>
-                  <div className="flex justify-between mt-4">
+                  <div className="flex justify-between mt-4 gap-2">
                     <Link
                       to={`/blog/update/${element._id}`}
-                      className="text-blue-500 bg-white rounded-md shadow-lg px-3 py-1 border border-gray-400 hover:underline"
+                      className="text-blue-500 bg-white rounded-md shadow-lg px-3 py-1 border border-gray-400 hover:underline text-sm flex-1 text-center"
                     >
                       UPDATE
                     </Link>
                     <button
                       onClick={() => handleDelete(element._id)}
-                      className="text-red-500 bg-white rounded-md shadow-lg px-3 py-1 border border-gray-400 hover:underline"
+                      className="text-red-500 bg-white rounded-md shadow-lg px-3 py-1 border border-gray-400 hover:underline text-sm flex-1"
                     >
                       DELETE
                     </button>
@@ -76,7 +76,7 @@ function MyBlogs() {
               </div>
             ))
           ) : (
-            <p className="text-center text-gray-500">
+            <p className="text-center text-gray-500 col-span-full py-8">
               You have not posted any blog to see!
             </p>
           )}

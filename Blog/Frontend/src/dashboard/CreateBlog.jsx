@@ -108,7 +108,7 @@ function CreateBlog() {
                 placeholder="Write something about your blog"
                 value={about}
                 onChange={(e) => setAbout(e.target.value)}
-                className="w-full px-3 py-2  border border-gray-400  rounded-md outline-none"
+                className="w-full px-3 py-2  border border-gray-800  rounded-md outline-none"
               />
             </div>
 

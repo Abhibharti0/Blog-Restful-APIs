@@ -7,13 +7,20 @@ function Hero() {
   console.log("Blogs:", blogs);
 
   return (
-    <div className="container mx-auto my-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 p-6">
+    <div className="container mx-auto mt-20 mb-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 p-6">
       {blogs && blogs.length > 0 ? (
         blogs.slice(0, 4).map((element) => {
-          // Parse adminPhoto string to object
-          const adminPhotoUrl = element.adminPhoto
-            ? JSON.parse(element.adminPhoto).url
-            : "https://via.placeholder.com/50";
+          // Safe parse adminPhoto string to object
+          let adminPhotoUrl = "https://via.placeholder.com/50";
+          try {
+            if (typeof element.adminPhoto === "string" && element.adminPhoto.startsWith("{")) {
+              adminPhotoUrl = JSON.parse(element.adminPhoto)?.url || "https://via.placeholder.com/50";
+            } else {
+              adminPhotoUrl = element.adminPhoto || "https://via.placeholder.com/50";
+            }
+          } catch (e) {
+            adminPhotoUrl = element.adminPhoto || "https://via.placeholder.com/50";
+          }
 
           return (
             <Link
@@ -23,7 +30,7 @@ function Hero() {
             >
               <div className="group relative">
                 <img
-                  src={element.blogimage.url} // lowercase 'blogimage'
+                  src={element.blogImage.url}
                   alt={element.title}
                   className="w-full h-56 object-cover"
                 />

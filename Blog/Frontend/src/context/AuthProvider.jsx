@@ -19,7 +19,9 @@ export const AuthProvider = ({ children }) => {
         const { data } = await axios.get(`${API_BASE}/api/user/my-profile`, {
           withCredentials: true, // cookie send karega
         });
-        setProfile(data.user || data); // agar backend user object send kare
+        const profileData = data.user || data;
+        console.log("Profile fetched from my-profile:", profileData);
+        setProfile(profileData);
         setIsAuthenticated(true);
       } catch (error) {
         console.error("Error fetching profile:", error);
@@ -46,6 +48,8 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   const value = {
+    blogs,
+    setBlogs,
     profile,
     setProfile,
     isAuthenticated,

@@ -167,8 +167,51 @@ export const updateBlog = async (req, res) => {
       return res.status(403).json({ message: "You are not allowed to update this blog" });
     }
 
-    const updatedData = { ...req.body };
-    delete updatedData.createdBy; // prevent changing ownership
+    const { title, category, about } = req.body;
+    
+    // Validate required fields
+    if (!title && !category && !about && !req.files?.blogImage) {
+      return res.status(400).json({ message: "Please provide at least one field to update" });
+    }
+
+    let updatedData = {};
+    
+    if (title) updatedData.title = title;
+    if (category) updatedData.category = category;
+    if (about) updatedData.about = about;
+
+    // Handle image update if a new image is provided
+    if (req.files?.blogImage) {
+      const blogImage = req.files.blogImage;
+      
+      // Validate file type
+      const allowedFormats = ["image/jpeg", "image/png", "image/webp"];
+      if (!allowedFormats.includes(blogImage.mimetype)) {
+        return res.status(400).json({
+          message: "Invalid image format. Only JPG, PNG, and WEBP are allowed",
+        });
+      }
+
+      // Delete old image from Cloudinary if it exists
+      if (blog.blogImage?.public_id) {
+        try {
+          await cloudinary.uploader.destroy(blog.blogImage.public_id);
+        } catch (err) {
+          console.warn("Failed to delete old image from Cloudinary:", err);
+        }
+      }
+
+      // Upload new image to Cloudinary
+      const cloudinaryResponse = await cloudinary.uploader.upload(
+        blogImage.tempFilePath,
+        { folder: "blog_images" }
+      );
+
+      updatedData.blogImage = {
+        public_id: cloudinaryResponse.public_id,
+        url: cloudinaryResponse.secure_url || cloudinaryResponse.url,
+      };
+    }
 
     const updatedBlog = await Blogs.findByIdAndUpdate(blogId, updatedData, { new: true });
 

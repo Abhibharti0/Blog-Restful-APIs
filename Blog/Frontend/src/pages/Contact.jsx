@@ -102,15 +102,15 @@ function Contact() {
             <ul className="space-y-4 text-gray-700">
               <li className="flex items-center space-x-3 hover:text-blue-500 transition duration-300">
                 <FaPhone className="text-red-500 text-xl" />
-                <span>+91 9876543210</span>
+                <span>+91 834025676</span>
               </li>
               <li className="flex items-center space-x-3 hover:text-blue-500 transition duration-300">
                 <FaEnvelope className="text-pink-500 text-xl" />
-                <span>help@learncoding.com</span>
+                <span>abhibharti457@gmai.com</span>
               </li>
               <li className="flex items-center space-x-3 hover:text-blue-500 transition duration-300">
                 <FaMapMarkerAlt className="text-green-500 text-xl" />
-                <span>Delhi, NCR, India</span>
+                <span>patna,Bihar</span>
               </li>
             </ul>
           </div>
